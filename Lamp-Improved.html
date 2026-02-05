@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAMP Plans | Doctors Hospital</title>
+    <link rel="icon" type="image/png" href="C:\Users\Ryan\Downloads\doctors_hospital_logo_transparent.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary-red: #9a2b37;
+            --primary-red-dark: #7a222c;
+            --primary-green: #3ecf9f;
+            --primary-green-dark: #2eb888;
+            --dark-slate: #1e3642;
+            --text-dark: #2a2a2a;
+            --text-light: #5a6a72;
+            --bg-light: #f7f9fb;
+            --white: #ffffff;
+            --gold: #eebf63;
+            --gold-dark: #d4a84f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-slate);
+            line-height: 1.2;
+        }
+
+        p {
+            color: var(--text-light);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Sticky Navigation --- */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0,0,0,0);
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 10px 40px;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-slate);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-logo span {
+            color: var(--dark-slate);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--primary-red);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 30px;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-red-dark) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(154, 43, 55, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--dark-slate);
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e8f0f5 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(62, 207, 159, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(ellipse, rgba(154, 43, 55, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(154, 43, 55, 0.1);
+            color: var(--primary-red);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            animation: fadeInUp 1s ease 0.1s backwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero h1 span {
+            color: var(--primary-red);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 35px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-red-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(154, 43, 55, 0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark-slate);
+            border: 2px solid var(--dark-slate);
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-slate);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--dark-slate);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(238, 191, 99, 0.3);
+        }
+
+        .btn-green {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .btn-green:hover {
+            background: var(--primary-green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(62, 207, 159, 0.3);
+        }
+
+        /* --- Plan Comparison Section --- */
+        .comparison-section {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.05rem;
+        }
+
+        /* Plan Toggle */
+        .plan-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
+        }
+
+        .toggle-btn {
+            padding: 12px 28px;
+            border: 2px solid #e0e5e9;
+            background: white;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            color: white;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.06);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-green);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--gold);
+            color: var(--dark-slate);
+            padding: 6px 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 2;
+        }
+
+        .card-header {
+            padding: 30px 30px 20px;
+            text-align: center;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+
+        .pricing-card:nth-child(1) .card-icon {
+            background: rgba(154, 43, 55, 0.1);
+        }
+
+        .pricing-card:nth-child(2) .card-icon {
+            background: rgba(62, 207, 159, 0.15);
+        }
+
+        .pricing-card:nth-child(3) .card-icon {
+            background: rgba(238, 191, 99, 0.2);
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .card-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .card-price {
+            padding: 20px 30px;
+            text-align: center;
+            border-top: 1px solid #f0f3f5;
+            border-bottom: 1px solid #f0f3f5;
+            background: #fafbfc;
+        }
+
+        .price-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-slate);
+            line-height: 1;
+        }
+
+        .price-amount sup {
+            font-size: 1.2rem;
+            top: -1rem;
+        }
+
+        .price-period {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        .card-features {
+            padding: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .card-footer {
+            padding: 0 30px 30px;
+        }
+
+        .card-footer .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Family Plans (hidden by default) */
+        .family-plans {
+            display: none;
+        }
+
+        .family-plans.active {
+            display: grid;
+        }
+
+        .individual-plans.active {
+            display: grid;
+        }
+
+        .individual-plans {
+            display: none;
+        }
+
+        /* --- Benefits Section --- */
+        .benefits-section {
+            background: var(--primary-green);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .benefits-section .section-header h2 {
+            color: white;
+        }
+
+        .benefits-section .section-header p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .benefit-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+
+        .benefit-card-icon {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-card-text {
+            font-weight: 600;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        /* --- How It Works --- */
+        .how-it-works {
+            padding: 100px 20px;
+            background: var(--bg-light);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-card:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: calc(50% + 40px);
+            width: calc(100% - 80px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), transparent);
+            z-index: 0;
+        }
+
+        .step-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            font-size: 0.9rem;
+        }
+
+        /* --- FAQ Section --- */
+        .faq-section {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .faq-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .faq-content > p {
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e8ecef;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-slate);
+            text-align: left;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--primary-red);
+        }
+
+        .faq-question span {
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+            padding-bottom: 20px;
+        }
+
+        .faq-answer p {
+            font-size: 0.95rem;
+        }
+
+        .faq-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 500px;
+        }
+
+        .faq-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            background: var(--dark-slate);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(238, 191, 99, 0.1) 0%, transparent 60%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            color: var(--gold);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .cta-section .small {
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        /* --- Footer --- */
+        .footer-split {
+            display: flex;
+            min-height: 400px;
+        }
+
+        .footer-content {
+            flex: 1;
+            padding: 60px;
+            background: white;
+        }
+
+        .footer-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .contact-item-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .red-side {
+            flex: 1;
+            background: var(--primary-red);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .red-side .circle-outline {
+            width: 200px;
+            height: 200px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .red-side .circle-outline::before {
+            content: '❤';
+            font-size: 150px;
+            color: rgba(255,255,255,0.3);
+            display: block;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10% { transform: scale(1.15); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.15); }
+            40%, 100% { transform: scale(1); }
+        }
+
+        .red-side::before {
+            content: '❤';
+            position: absolute;
+            font-size: 250px;
+            color: rgba(255,255,255,0.08);
+            animation: heartbeat 1.5s ease-in-out infinite 0.1s;
+        }
+        .bottom-bar {
+            background: #80202b;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* --- Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            padding: 30px 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .modal-header p {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            padding: 5px;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-red);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark-slate);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e8ecef;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-footer {
+            padding: 0 30px 30px;
+        }
+
+        .modal-footer .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 900px) {
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-image {
+                display: none;
+            }
+
+            .step-card::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                gap: 0;
+                box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+                transition: right 0.3s;
+            }
+
+            .nav-links.open {
+                right: 0;
+            }
+
+            .nav-links a {
+                padding: 15px 0;
+                border-bottom: 1px solid #f0f3f5;
+                width: 100%;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .nav-cta {
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1001;
+            }
+
+            .mobile-menu-btn.open span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .mobile-menu-btn.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-btn.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .plan-toggle {
+                flex-wrap: wrap;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+
+            .comparison-section,
+            .benefits-section,
+            .how-it-works,
+            .faq-section {
+                padding: 60px 20px;
+            }
+
+            .footer-split {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                padding: 40px 20px;
+            }
+
+            .red-side {
+                min-height: 200px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="nav-logo">
+            <img src="C:\Users\Ryan\Downloads\doctors_hospital_logo_transparent.png" alt="Doctors Hospital Logo">
+            <span>LAMP</span>
+        </a>
+        <div class="nav-links">
+            <a href="#plans">Plans</a>
+            <a href="#benefits">Benefits</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#faq">FAQ</a>
+            <a href="#" class="nav-cta" onclick="openModal(); return false;">Get Started</a>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">A Doctors Hospital Healthcare Program</div>
+            <h1>Healthcare Made <span>Affordable</span> & Accessible</h1>
+            <p>The Loyalty Advantage Membership Program (LAMP) offers flexible, cost-effective healthcare plans tailored for individuals, families, and businesses.</p>
+            <div class="hero-buttons">
+                <a href="#plans" class="btn btn-primary">View Plans</a>
+                <a href="#" class="btn btn-outline" onclick="openModal(); return false;">Schedule Consultation</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pricing Comparison Section -->
+    <section class="comparison-section" id="plans">
+        <div class="section-header animate-on-scroll">
+            <h2>Choose Your Plan</h2>
+            <p>Select the coverage that fits your lifestyle and budget</p>
+        </div>
+
+        <div class="plan-toggle animate-on-scroll">
+            <button class="toggle-btn active" onclick="showPlans('individual')">Individual Plans</button>
+            <button class="toggle-btn" onclick="showPlans('family')">Family & Business</button>
+        </div>
+
+        <!-- Individual Plans -->
+        <div class="pricing-grid individual-plans active" id="individual-plans">
+            <!-- LAMP Access -->
+            <div class="pricing-card animate-on-scroll">
+                <div class="card-header">
+                    <div class="card-icon">🌟</div>
+                    <h3>LAMP Access</h3>
+                    <p class="subtitle">Start your healthcare journey</p>
+                </div>
+                <div class="card-price">
+                    <div class="price-amount"><sup>$</sup>0</div>
+                    <p class="price-period">Free forever</p>
+                </div>
+                <div class="card-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>10% Discount on Labs</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>10% Discount on Prescription Medication</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>10% Discount on Imaging Services</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>10% Discount on Mammograms</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-outline" onclick="openModal('LAMP Access')">Enroll Free</button>
+                </div>
+            </div>
+
+            <!-- LAMP Primary -->
+            <div class="pricing-card animate-on-scroll">
+                <div class="card-header">
+                    <div class="card-icon">💚</div>
+                    <h3>LAMP Primary</h3>
+                    <p class="subtitle">Essential coverage for individuals</p>
+                </div>
+                <div class="card-price">
+                    <div class="price-amount"><sup>$</sup>40</div>
+                    <p class="price-period">per month (+VAT)</p>
+                </div>
+                <div class="card-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Unlimited Primary Care Visits</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Unlimited Telehealth Care Visits</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>1 Free Annual Physical (including labs)</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>30% Discount on additional lab services</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>2 Free Imaging Services per year</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>1 Free Mammogram per year</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>20% Discount on outpatient rehab</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" onclick="openModal('LAMP Primary')">Get Started</button>
+                </div>
+            </div>
+
+            <!-- LAMP Ultimate -->
+            <div class="pricing-card featured animate-on-scroll">
+                <div class="card-header">
+                    <div class="card-icon">⭐</div>
+                    <h3>LAMP Ultimate</h3>
+                    <p class="subtitle">Complete coverage & peace of mind</p>
+                </div>
+                <div class="card-price">
+                    <div class="price-amount"><sup>$</sup>119</div>
+                    <p class="price-period">per month (+VAT)</p>
+                </div>
+                <div class="card-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Unlimited Primary Care & Telehealth</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>6 Urgent Care Visits per year</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>1 Annual Physical with labs at 100%</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Unlimited Labs covered at 100%</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Unlimited X-rays & Ultrasounds at 100%</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Flat-rate Prescription Medication</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>All outpatient rehab services included</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>3 Nutritional consultations per year</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-green" onclick="openModal('LAMP Ultimate')">Get Started</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Family & Business Plans -->
+        <div class="pricing-grid family-plans" id="family-plans">
+            <!-- Family Plan -->
+            <div class="pricing-card animate-on-scroll">
+                <div class="card-header">
+                    <div class="card-icon">👨‍👩‍👧</div>
+                    <h3>LAMP Ultimate Family</h3>
+                    <p class="subtitle">Coverage for the whole family</p>
+                </div>
+                <div class="card-price">
+                    <div class="price-amount" style="font-size: 1.8rem;">From <sup>$</sup>160</div>
+                    <p class="price-period">per month (+VAT)</p>
+                </div>
+                <div class="card-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Member + Spouse: $225/mo</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Member + 1 Child: $160/mo</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Member + 2 Children: $210/mo</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Full Family (Spouse + Child): $290/mo</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>All LAMP Ultimate benefits included</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" onclick="openModal('LAMP Ultimate Family')">Get Started</button>
+                </div>
+            </div>
+
+            <!-- Business Plan -->
+            <div class="pricing-card featured animate-on-scroll">
+                <div class="card-header">
+                    <div class="card-icon">🏢</div>
+                    <h3>LAMP Business</h3>
+                    <p class="subtitle">Healthcare for your team</p>
+                </div>
+                <div class="card-price">
+                    <div class="price-amount" style="font-size: 1.8rem;">Custom</div>
+                    <p class="price-period">Group rates available</p>
+                </div>
+                <div class="card-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Special group plan discounts</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Flexible coverage options</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Dedicated account manager</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Flat capped prescription rates</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>20% discount on facility fees</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-gold" onclick="openModal('LAMP Business')">Schedule Consultation</button>
+                </div>
+            </div>
+
+            <!-- Group Plan -->
+            <div class="pricing-card animate-on-scroll">
+                <div class="card-header">
+                    <div class="card-icon">🤝</div>
+                    <h3>Ultimate Group</h3>
+                    <p class="subtitle">For organizations & associations</p>
+                </div>
+                <div class="card-price">
+                    <div class="price-amount" style="font-size: 1.8rem;">Custom</div>
+                    <p class="price-period">Tailored to your needs</p>
+                </div>
+                <div class="card-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Customized benefits package</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Volume-based pricing</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>All outpatient rehab included</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Members get 20% off facility fees</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <span>Priority scheduling</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-outline" onclick="openModal('Ultimate Group')">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section" id="benefits">
+        <div class="section-header">
+            <h2>LAMP Benefits</h2>
+            <p>Everything you need for comprehensive healthcare coverage</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">🩺</div>
+                <span class="benefit-card-text">Unlimited Primary Care Visits</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">💊</div>
+                <span class="benefit-card-text">Prescription Discounts</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">👥</div>
+                <span class="benefit-card-text">Group Discounts Available</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">📋</div>
+                <span class="benefit-card-text">Free Annual Physical</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">🔬</div>
+                <span class="benefit-card-text">Imaging Services</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">🏥</div>
+                <span class="benefit-card-text">Reduced ER Deposits</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">📱</div>
+                <span class="benefit-card-text">24/7 Telehealth Access</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">👨‍👩‍👧‍👦</div>
+                <span class="benefit-card-text">Affordable Family Plans</span>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-card-icon">🥗</div>
+                <span class="benefit-card-text">Nutritional Support</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Getting started with LAMP is simple</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card animate-on-scroll">
+                <div class="step-number">1</div>
+                <h4>Choose Your Plan</h4>
+                <p>Select the coverage level that best fits your needs and budget.</p>
+            </div>
+            <div class="step-card animate-on-scroll">
+                <div class="step-number">2</div>
+                <h4>Enroll Online</h4>
+                <p>Complete your enrollment in minutes with our simple form.</p>
+            </div>
+            <div class="step-card animate-on-scroll">
+                <div class="step-number">3</div>
+                <h4>Start Using Benefits</h4>
+                <p>Visit Doctors Hospital and affiliated clinics right away.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="faq-grid">
+            <div class="faq-content">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about LAMP membership</p>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What is LAMP?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>LAMP stands for Loyalty Advantage Membership Program. It's a healthcare subscription plan designed to provide affordable, accessible healthcare for individuals, families, and businesses through Doctors Hospital.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Who can sign up for LAMP?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Anyone can sign up for LAMP. We offer plans for individuals, families, and businesses of all sizes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is LAMP a replacement for health insurance?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No, LAMP is not insurance. It's a direct primary care membership that can complement your existing insurance or serve as standalone coverage for primary care needs.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Where can I use my LAMP benefits?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Your LAMP benefits can be used at Doctors Hospital and all affiliated clinics in our network.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        How do I pay my membership fees?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Membership fees are paid monthly via credit card or bank draft for your convenience.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        How do I cancel or switch my plan?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You can contact our support team at any time to make changes to your plan or cancel your membership.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Can I sign up without health insurance?
+                        <span>+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, absolutely! LAMP is designed to be accessible to everyone, whether or not you have existing health insurance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-image">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Doctor consultation">
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Not Ready for a Paid Plan?</h2>
+            <p>Start your healthcare journey with LAMP Access — completely free.</p>
+            <p class="small">Enjoy 10% discounts on labs, prescriptions, imaging, and mammograms.</p>
+            <button class="btn btn-gold" onclick="openModal('LAMP Access')">Enroll for Free →</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer-split">
+        <div class="footer-content">
+            <h3>Get in Touch</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-item-icon">📍</div>
+                    <span>Doctors Hospital, Nassau, Bahamas</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">📞</div>
+                    <span>(242) 302-4600</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">✉️</div>
+                    <span>lamp@doctorshosp.com</span>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="openModal()">Schedule a Consultation</button>
+        </div>
+        <div class="red-side">
+            <div class="circle-outline"></div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        © 2026 Doctors Hospital LAMP Program. Designed by Ryan White.
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h3>Get Started with LAMP</h3>
+                    <p id="modal-plan-name">Complete the form below to enroll</p>
+                </div>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="enrollment-form" onsubmit="submitForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plan">Select Plan</label>
+                        <select id="plan" name="plan" required>
+                            <option value="">Choose a plan...</option>
+                            <option value="LAMP Access">LAMP Access (Free)</option>
+                            <option value="LAMP Primary">LAMP Primary ($40/mo)</option>
+                            <option value="LAMP Ultimate">LAMP Ultimate ($119/mo)</option>
+                            <option value="LAMP Ultimate Family">LAMP Ultimate Family</option>
+                            <option value="LAMP Business">LAMP Business</option>
+                            <option value="Ultimate Group">Ultimate Group</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="enrollment-form" class="btn btn-green">Submit Enrollment →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sticky nav scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navLinks.classList.toggle('open');
+            menuBtn.classList.toggle('open');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('open');
+                document.querySelector('.mobile-menu-btn').classList.remove('open');
+            });
+        });
+
+        // Plan toggle
+        function showPlans(type) {
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            toggleBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const individualPlans = document.getElementById('individual-plans');
+            const familyPlans = document.getElementById('family-plans');
+
+            if (type === 'individual') {
+                individualPlans.classList.add('active');
+                familyPlans.classList.remove('active');
+            } else {
+                individualPlans.classList.remove('active');
+                familyPlans.classList.add('active');
+            }
+        }
+
+        // FAQ accordion
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const isOpen = faqItem.classList.contains('open');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('open');
+            });
+
+            // Open clicked item if it wasn't open
+            if (!isOpen) {
+                faqItem.classList.add('open');
+            }
+        }
+
+        // Modal functions
+        function openModal(planName) {
+            const modal = document.getElementById('modal');
+            const planSelect = document.getElementById('plan');
+            const planNameDisplay = document.getElementById('modal-plan-name');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            if (planName) {
+                planSelect.value = planName;
+                planNameDisplay.textContent = `Enrolling in ${planName}`;
+            } else {
+                planSelect.value = '';
+                planNameDisplay.textContent = 'Complete the form below to enroll';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        function submitForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Here you would normally send the data to your server
+            console.log('Form submitted:', Object.fromEntries(formData));
+            
+            // Show success message
+            alert('Thank you for your enrollment! We will contact you shortly.');
+            closeModal();
+            form.reset();
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
