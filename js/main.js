@@ -364,6 +364,30 @@
     }
 
     // ==========================================================================
+    // Cookie Banner
+    // ==========================================================================
+
+    function initCookieBanner() {
+        const banner = document.getElementById('cookie-banner');
+        if (!banner || localStorage.getItem('cookie-consent')) return;
+
+        // Show banner after a short delay
+        setTimeout(() => {
+            banner.setAttribute('aria-hidden', 'false');
+        }, 1000);
+
+        document.getElementById('cookie-accept').addEventListener('click', () => {
+            localStorage.setItem('cookie-consent', 'accepted');
+            banner.setAttribute('aria-hidden', 'true');
+        });
+
+        document.getElementById('cookie-decline').addEventListener('click', () => {
+            localStorage.setItem('cookie-consent', 'declined');
+            banner.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    // ==========================================================================
     // Initialization
     // ==========================================================================
 
@@ -384,6 +408,9 @@
 
         // Initialize scroll animations
         initScrollAnimations();
+
+        // Initialize cookie banner
+        initCookieBanner();
 
         // Set initial ARIA states
         if (navLinks) {
